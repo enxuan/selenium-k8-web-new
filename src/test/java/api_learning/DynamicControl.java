@@ -43,8 +43,8 @@ public class DynamicControl implements Urls {
             }
 
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-//            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loading")));
-            wait.until(new WaitForElementEnabled(By.cssSelector("#input-example input")));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("loading")));
+//            wait.until(new WaitForElementEnabled(By.cssSelector("#input-example input")));
 
             inputFieldElem.sendKeys("Hello, have a good day!");
             Thread.sleep(1000);
