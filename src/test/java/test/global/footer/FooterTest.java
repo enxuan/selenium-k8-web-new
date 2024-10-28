@@ -7,40 +7,57 @@ import models.components.global.footer.InfomationColumnComponent;
 import models.pages.BasePage;
 import models.pages.HomePage;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import support.verification.Verifier;
 import url.Urls;
 
 public class FooterTest {
 
-    public static void main(String[] args) {
+//    @Test
+    public void testFooterHomePage() {
         WebDriver driver = DriverFactory.getChromeDriver();
+        driver.get(Urls.demeBaseUrl);
         try {
-            testFooterHomePage(driver);
-            testFooterCategoryPage(driver);
-            testFooterRegisterPage(driver);
-            testFooterLoginPage(driver);
+            HomePage homePagePage = new HomePage(driver);
+            InfomationColumnComponent infomationColumnComp = homePagePage.footerComp().infomationColumnComp();
+            testFooterColumn(infomationColumnComp);
+
+            CustomerServiceColumnComponent customerServiceColumnComp = homePagePage.footerComp().customerServiceColumnComp();
+            testFooterColumn(customerServiceColumnComp);
         } catch (Exception e) {
             e.printStackTrace();
         }
         driver.quit();
     }
 
-    private static void testFooterHomePage(WebDriver driver) {
-        driver.get(Urls.demeBaseUrl);
-        HomePage homePagePage = new HomePage(driver);
-        InfomationColumnComponent infomationColumnComp = homePagePage.footerComp().infomationColumnComp();
-        testFooterColumn(infomationColumnComp);
-
-        CustomerServiceColumnComponent customerServiceColumnComp = homePagePage.footerComp().customerServiceColumnComp();
-        testFooterColumn(customerServiceColumnComp);
+    @Test
+    public void testFooterCategoryPage() {
     }
 
-    private static void testFooterCategoryPage(WebDriver driver) {
+    @Test
+    public void testFooterRegisterPage() {
+        String actualResult = "Teo";
+        String expectedResult = "Ti";
+
+//        Verifier.verifyEquals(actualResult, expectedResult);
+
+        // Hard assertion
+        Assert.assertEquals(actualResult, expectedResult, ".....");
+        Assert.assertTrue(actualResult.equals(expectedResult));
+        Assert.fail();
+        Assert.fail(".....");
     }
 
-    private static void testFooterRegisterPage(WebDriver driver) {
-    }
-
-    private static void testFooterLoginPage(WebDriver driver) {
+    @Test
+    public void testFooterLoginPage() {
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(1, 2);
+        softAssert.assertEquals(true, true);
+        softAssert.assertEquals(4, 5);
+        softAssert.assertAll();
+        System.out.println("end command");
     }
 
     private static void testFooterColumn(FooterColumnComponent footerColumnComponent) {

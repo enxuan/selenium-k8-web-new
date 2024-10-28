@@ -1,0 +1,8 @@
+<suite name="Regression Test">
+
+    <test name="Footer Test">
+        <classes>
+            <class name="test.global.footer.FooterTest" />
+        </classes>
+    </test>
+</suite>
