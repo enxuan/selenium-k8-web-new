@@ -24,6 +24,10 @@ public class Component {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(15));
     }
 
+    public WebElement getComponent() {
+        return component;
+    }
+
     public WebElement findElement(By by) {
         return component.findElement(by);
     }
