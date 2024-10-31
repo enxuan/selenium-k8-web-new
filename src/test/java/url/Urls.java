@@ -1,7 +1,7 @@
 package url;
 
 public interface Urls {
-    String demeBaseUrl = "https://demowebshop.tricentis.com";
+    String demoBaseUrl = "https://demowebshop.tricentis.com";
     String baseUrl = "https://the-internet.herokuapp.com";
     String dropdownSlug = "/dropdown";
     String loginSlug = "/login";

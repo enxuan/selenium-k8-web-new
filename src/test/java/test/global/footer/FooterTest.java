@@ -1,48 +1,28 @@
 package test.global.footer;
 
-import driver.DriverFactory;
-import models.components.global.footer.CustomerServiceColumnComponent;
 import models.components.global.footer.FooterColumnComponent;
-import models.pages.HomePage;
-import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import test.BaseTest;
 import test_flows.global.FooterTestFlow;
 import url.Urls;
 
-public class FooterTest {
+public class FooterTest extends BaseTest {
 
     @Test
     public void testFooterHomePage() {
-        WebDriver driver = DriverFactory.getChromeDriver();
-        driver.get(Urls.demeBaseUrl);
-        try {
-            HomePage homePagePage = new HomePage(driver);
-//            InfomationColumnComponent infomationColumnComp = homePagePage.footerComp().infomationColumnComp();
-//            testFooterColumn(infomationColumnComp);
-
-            CustomerServiceColumnComponent customerServiceColumnComp = homePagePage.footerComp().customerServiceColumnComp();
-            testFooterColumn(customerServiceColumnComp);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            driver.quit();
-        }
+        driver.get(Urls.demoBaseUrl);
+        FooterTestFlow footerTestFlow = new FooterTestFlow(driver);
+        footerTestFlow.verifyFooterComponent();
 
     }
 
     @Test
     public void testFooterCategoryPage() {
-        WebDriver driver = DriverFactory.getChromeDriver();
-        try {
-            driver.get(Urls.demeBaseUrl);
-            FooterTestFlow footerTestFlow = new FooterTestFlow(driver);
-            footerTestFlow.verifyProductCatFooterComponent();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            driver.quit();
-        }
-
+        driver.get(Urls.demoBaseUrl);
+        Assert.fail("demo taking screenshot when test is failed!");
+        FooterTestFlow footerTestFlow = new FooterTestFlow(driver);
+        footerTestFlow.verifyProductCatFooterComponent();
     }
 
     @Test
