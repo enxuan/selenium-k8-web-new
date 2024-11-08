@@ -5,6 +5,7 @@ import models.components.ComponentCssSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @ComponentCssSelector("#opc-confirm_order")
 public class ConfirmOrderComponent extends Component {
@@ -16,6 +17,8 @@ public class ConfirmOrderComponent extends Component {
     }
 
     public void clickConfirmBtn() {
-        findElement(confirmBtnSel).click();
+        WebElement confirmBtn = component.findElement(confirmBtnSel);
+        confirmBtn.click();
+        wait.until(ExpectedConditions.invisibilityOf(confirmBtn));
     }
 }

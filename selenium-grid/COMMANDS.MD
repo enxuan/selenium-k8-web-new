@@ -9,7 +9,7 @@ Safari
 Note: IF you are on Windows OS, please remove part related to safari and add for Edge
 
 java -jar -Dwebdriver.<type>.<name>s path/to/selenium/server.jar node --config /path/to/nodeConfig.json
-java -jar -Dwebdriver.gecko.driver=geckodriver -Dwebdriver.chrome.driver=chromedriver selenium-server-4.26.0.jar node --config node-config.json
+java -jar selenium-server-4.26.0.jar node --config node-config.json --selenium-manager true
 
 NOTE: on Windows need to specify extension like gecko.exe, chrome.exe
 

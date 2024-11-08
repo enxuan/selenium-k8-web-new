@@ -1,8 +1,16 @@
-<suite name="Regression Test">
-
-    <test name="Footer Test">
+<suite name="Regression Test" parallel="test" thread-count="10">
+    <test name="Global UI" parallel="test" thead-count="10">
+        <parameter name="browser" value="chrome"/>
         <classes>
             <class name="test.global.footer.FooterTest" />
+            <class name="test.computer.BuyingStandardComputerTest" />
+        </classes>
+    </test>
+    <test name="Buying Computer" parallel="test" thead-count="10">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="test.computer.BuyingCheapComputerTest" />
+
         </classes>
     </test>
 </suite>

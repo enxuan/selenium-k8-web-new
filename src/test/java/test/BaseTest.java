@@ -10,29 +10,39 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class BaseTest {
 
-    protected static WebDriver driver;
+    private final static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
+    private static ThreadLocal<DriverFactory> driverThread;
+    private String browser;
 
-    @BeforeTest
-    public void initBrowserSession() {
-        driver = DriverFactory.getChromeDriver();
+    protected WebDriver getDriver() {
+        return driverThread.get().getDriver(browser);
+    }
+
+    @BeforeTest(description = "Init browser session")
+    @Parameters({"browser"})
+    public void initBrowserSession(String browser) {
+        this.browser = browser;
+        driverThread = ThreadLocal.withInitial(() -> {
+            DriverFactory webDriverThread = new DriverFactory();
+            webDriverThreadPool.add(webDriverThread);
+            return webDriverThread;
+        });
     }
 
     @AfterTest(alwaysRun = true)
     public void closeBrowserSession() {
-        if (driver != null) {
-            driver.quit();
-        }
+        driverThread.get().getDriver(browser).quit();
     }
 
     @AfterMethod
@@ -55,6 +65,7 @@ public class BaseTest {
                     h + "_" + min + "_" + sec + ".png";
 
             // 3. take screenshot
+            WebDriver driver = driverThread.get().getDriver(browser);
             File screenshotBase64Data = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
             //4. save and attach to allure reporter
