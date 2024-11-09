@@ -2,10 +2,7 @@ package test_flows.computer;
 
 import models.components.cart.CartItemRowComponent;
 import models.components.cart.TotalComponent;
-import models.components.checkout.BillingAddressComponent;
-import models.components.checkout.PaymentInformationComponent;
-import models.components.checkout.PaymentMethodComponent;
-import models.components.checkout.ShippingMethodComponent;
+import models.components.checkout.*;
 import models.components.order.ComputerEssentialComponent;
 import models.pages.CheckOutPage;
 import models.pages.CheckoutOptionPage;
@@ -23,6 +20,7 @@ import java.security.SecureRandom;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static models.components.checkout.ConfirmOrderComponent.ConfirmBillingInfo;
 
 public class OrderComputerFlow<T extends ComputerEssentialComponent> {
 
@@ -236,7 +234,29 @@ public class OrderComputerFlow<T extends ComputerEssentialComponent> {
     }
 
     public void confirmOrder() {
-        // TODO: Add verification methods
-        new CheckOutPage(driver).confirmOrderComp().clickConfirmBtn();
+        CheckOutPage checkOutPage = new CheckOutPage(driver);
+        ConfirmOrderComponent confirmOrderComponent = checkOutPage.confirmOrderComp();
+
+        // get Billing info
+        ConfirmBillingInfo confirmBillingInfo = confirmOrderComponent.getConfirmBillingInfo();
+        String billingName = confirmBillingInfo.getBillingName();
+        String billingEmail = confirmBillingInfo.getBillingEmail();
+        String billingAdd1 = confirmBillingInfo.getBillingAdd1();
+        String billingPhone = confirmBillingInfo.getBillingPhone();
+        String paymentMethod = confirmBillingInfo.getBillingPaymentMethod();
+        System.out.println(billingName);
+        System.out.println(billingEmail);
+        System.out.println(billingAdd1);
+        System.out.println(billingPhone);
+        System.out.println(paymentMethod);
+
+        // confirm billing info
+        String defaultUsername = defaultCheckoutUser.getFirstName() +  " " + defaultCheckoutUser.getLastName();
+        Assert.assertEquals(billingName, defaultUsername, "[ERR] billing name didn't correct.");
+        Assert.assertTrue(billingEmail.contains(defaultCheckoutUser.getEmail()), "[ERR] Billing email didn't correct");
+        Assert.assertTrue(billingAdd1.contains(defaultCheckoutUser.getAdd1()), "[ERR] Billing Address1 didn't correct");
+        Assert.assertTrue(billingPhone.contains(defaultCheckoutUser.getPhoneNum()), "[ERR] Billing phone number didn't correct");
+
+        confirmOrderComponent.clickConfirmBtn();
     }
 }
