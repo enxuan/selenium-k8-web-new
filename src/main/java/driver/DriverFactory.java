@@ -64,7 +64,8 @@ public class DriverFactory {
                     desiredCapabilities.setBrowserName(BrowserType.safari.getName());
             }
 
-            String hub = "http://192.168.0.105:4444";
+//            String hub = "http://192.168.0.105:4444";
+            String hub = System.getProperty("hub");
             try {
                 driver = new RemoteWebDriver(new URL(hub), desiredCapabilities);
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
