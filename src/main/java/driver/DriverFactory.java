@@ -65,7 +65,7 @@ public class DriverFactory {
             }
 
 //            String hub = "http://192.168.0.105:4444";
-            String hub = System.getProperty("hub");
+            String hub = System.getProperty("hub").concat("/wd/hub");
             try {
                 driver = new RemoteWebDriver(new URL(hub), desiredCapabilities);
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
