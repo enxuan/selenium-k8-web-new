@@ -87,14 +87,14 @@ public class Main {
         }
 
         // Run a group of test
-        if (isTestingOnSafari) {
-            suite.addIncludedGroup("smoke");
-        } else {
-            String targetGroup = args.length != 0 ? args[0] : null;
-            if (targetGroup != null) {
-                suite.addIncludedGroup(targetGroup);
-            }
-        }
+//        if (isTestingOnSafari) {
+//            suite.addIncludedGroup("smoke");
+//        } else {
+//            String targetGroup = args.length != 0 ? args[0] : null;
+//            if (targetGroup != null) {
+//                suite.addIncludedGroup(targetGroup);
+//            }
+//        }
 
         System.out.println(suite.toXml());
 
